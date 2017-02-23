@@ -14,13 +14,17 @@ private:
 
 public:
 	Vector();
+	Vector(size_t initial_size);
 	~Vector();
 	Vector(const Vector<T>& other);
 	Vector<T>& operator=(const Vector<T>& other);
+	
+
 
 	void insert(size_t index, const T &);
 	void push_back(const T &);
 	void push_front(const T &);
+	void append(const Vector<T>&);
 	const T& operator[](size_t index) const;
 	T& operator[](size_t index);
 	void removeAt(size_t index);
@@ -36,8 +40,18 @@ Vector<T>::Vector() {
 	size = 0;
 }
 
+
+template<typename T>
+Vector<T>::Vector(size_t initial_size) {
+	parr = new T[capacity = initial_size];
+	size = 0;
+}
+
+
 template<typename T>
 void Vector<T>::emptyArr() {
+	size = 0;
+	capacity = 1;
 	delete[] parr;
 	parr = nullptr;
 
@@ -138,6 +152,15 @@ void Vector<T>::push_front(const T & item){
 	insert(0, item);
 }
 
+
+template<typename T>
+void Vector<T>::append(const Vector<T>& other) {
+	size_t len = other.getSize();
+
+	for (size_t i = 0; i < len; ++i) {
+		push_back(other[i]);
+	}
+}
 template<typename T>
 const T & Vector<T>::operator[](size_t index) const{
 	if (index < size) {
@@ -150,7 +173,7 @@ const T & Vector<T>::operator[](size_t index) const{
 
 template<typename T>
 T & Vector<T>::operator[](size_t index){
-	if (index < size) {
+	if (index < capacity) {
 		return parr[index];
 	}
 	else {
@@ -171,5 +194,4 @@ void Vector<T>::removeAt(size_t index){
 		throw std::invalid_argument("Index out of range");
 	}
 }
-
 #endif //!_VECTOR
