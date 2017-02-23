@@ -1,3 +1,5 @@
+//array implementation of a fixed size minheap
+//uses macros {parent, left, right}
 #ifndef _HEAP
 #define _HEAP
 
