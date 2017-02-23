@@ -23,7 +23,6 @@ public:
 };
 
 
-
 template<typename T>
 node<T>::node() :
 	value(T()),
@@ -33,14 +32,19 @@ node<T>::node() :
 	left(nullptr),
 	right(nullptr) {}
 
+
+
 template<typename T>
 node<T>::node(const T& _value, node<T>* _left = nullptr, node<T>* _right = nullptr) :
 	value(_value),
+
 #ifdef WITH_COUNT
 	count( _value.count),//relies that T has property count
 #endif // WITH_COUNT
+
 	left(_left),
 	right(_right) {}
+
 
 
 
@@ -50,8 +54,8 @@ class BST {
 private:
 	node<T>* root;
 	node<T>* findNextBigger(node<T>*& curr);
-	
 	node<T>* copy(node<T>* copy_from);
+	
 public:
 	friend class Interface;
 	BST();
@@ -79,6 +83,7 @@ node<T>* BST<T>::findNextBigger(node<T>*& curr) {
 }
 
 
+
 template<typename T>
 node<T>* BST<T>::copy(node<T>* copy_from) {
 
@@ -90,9 +95,11 @@ node<T>* BST<T>::copy(node<T>* copy_from) {
 	}
 }
 
+
 template<typename T>
 BST<T>::BST() :
 	root(nullptr) {}
+
 
 
 template<typename T>
@@ -111,10 +118,14 @@ BST<T>& BST<T>::operator=(const BST<T>& other) {
 	return *this;
 }
 
+
+
 template<typename T>
 node<T>*& BST<T>:: getRoot(){
 	return root;
 }
+
+
 
 template<typename T>
 void BST<T>::insert(const T& key, node<T>*& curr) {
@@ -122,20 +133,21 @@ void BST<T>::insert(const T& key, node<T>*& curr) {
 		curr = new node<T>(key);
 	}
 
-
 	else if (key == curr->value) {
+		
 #ifdef WITH_COUNT
 		++(curr->count);
 #endif // WITH_COUNT
+		
 		return;//if WITH_COUNT is not defined no new element will be added
 	}
 
-
 	else {
-
 		insert(key, key < curr->value ? curr->left : curr->right);
 	}
 }
+
+
 
 
 template<typename T>
@@ -148,6 +160,7 @@ bool BST<T>::find(const T& key, node<T>*& curr) {
 
 	return find(key, key < curr->value ? curr->left : curr->right);
 }
+
 
 
 template<typename T>
@@ -167,7 +180,6 @@ bool BST<T>::remove(const T& key, node<T>*& curr) {
 #endif // WITH_COUNT
 
 	node<T>* holder = curr;
-
 
 	if (curr->left && curr->right) {
 
