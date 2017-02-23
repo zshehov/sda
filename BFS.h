@@ -1,11 +1,11 @@
-//implementation of bfs with a fixed size graph
+//implementation of bfs with a fixed size graph as adjacency matrix
 #ifndef _BFS
 #define _BFS
 
 #include<queue>
 #define SIZE 4
 
-void BFS(int (&matrix)[SIZE][SIZE], int start) {
+void BFS(int (&graph)[SIZE][SIZE], int start) {
 
 	bool checked[SIZE];
 
@@ -23,7 +23,7 @@ void BFS(int (&matrix)[SIZE][SIZE], int start) {
 		int current = q.front();
 
 		for (size_t i = 0; i < SIZE; ++i) {
-			if (!checked[i] && matrix[current][i] != 0) {
+			if (!checked[i] && graph[current][i] != 0) {
 				q.push(i);
 				checked[i] = true;
 			}
