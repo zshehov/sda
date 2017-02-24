@@ -236,11 +236,6 @@ T& LinkedList<T>::get_last() {
 	return last->data;
 }
 
-template<typename T>
-T& LinkedList<T>::get_at(size_t index) {
-
-
-}
 
 template<typename T>
 T& LinkedList<T>::operator[](size_t index) {
