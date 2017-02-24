@@ -43,8 +43,7 @@ public:
 	T& get_last();
 
 
-	T& get_at(size_t index);
-	T& operator[](size_t index);//get_at but with [] notation
+	T& operator[](size_t index);
 	void remove_at(size_t index);
 
 	void insert_after(size_t index, const T& el);
@@ -239,18 +238,18 @@ T& LinkedList<T>::get_last() {
 
 template<typename T>
 T& LinkedList<T>::get_at(size_t index) {
+
+
+}
+
+template<typename T>
+T& LinkedList<T>::operator[](size_t index) {
 	Node<T>* target = find_at(index);
 
 	if (target == nullptr)
 		throw "Invalid index";
 
 	return target->data;
-
-}
-
-template<typename T>
-T& LinkedList<T>::operator[](size_t index) {
-	return get_at(index);
 }
 
 
