@@ -59,8 +59,7 @@ void LinkedList<T>::copy(const LinkedList& other) {
 
 	// in the case we are copying from an empty list
 	if (other.first == nullptr) {
-		first = last = nullptr;
-		size = 0;
+		empty_list();
 		return;
 	}
 
@@ -290,8 +289,7 @@ void LinkedList<T>::insert_after(size_t index, const T& el) {
 	if (target == nullptr)
 		throw "Invalid index";
 
-	Node<T>* insertee = new Node<T>(el);
-	insertee->next = target->next;
+	Node<T>* insertee = new Node<T>(el, target->next);
 	target->next = insertee;
 	++size;
 }
@@ -311,8 +309,7 @@ void LinkedList<T>::insert_before(size_t index, const T& el) {
 		throw "Invalid index";
 
 
-	Node<T>* insertee = new Node<T>(el);
-	insertee->next = target->next;
+	Node<T>* insertee = new Node<T>(el, target->next);
 	target->next = insertee;
 	++size;
 }
@@ -332,9 +329,6 @@ void LinkedList<T>::append(const LinkedList<T>& other) {
 
 template<typename T>
 bool LinkedList<T>::is_empty()const {
-	if (size == 0 && (first != nullptr || last != nullptr))
-		throw "SUMTHING WRONG";
-
 	return size == 0;
 }
 
