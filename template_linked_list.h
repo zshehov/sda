@@ -5,8 +5,7 @@ template<typename T>
 struct Node {
 	T data;
 	Node<T> * next;
-
-
+	
 	Node(const T & _data, Node<T>* _next = nullptr);
 };
 
@@ -36,8 +35,8 @@ public:
 	void push_first(const T& el);
 	void push_last(const T& el);
 
-	void pop_first();
-	void pop_last();
+	bool pop_first();
+	bool pop_last();
 
 	T& get_first();
 	T& get_last();
@@ -153,7 +152,7 @@ void LinkedList<T>::push_first(const T& el) {
 	to_add->next = first;
 	first = to_add;
 
-	if (last == nullptr)
+	if (size == 0)
 		last = first;
 
 	++size;
@@ -165,7 +164,7 @@ void LinkedList<T>::push_last(const T& el) {
 
 	Node<T>* to_add = new Node<T>(el);
 
-	if (last == nullptr) {
+	if (size == 0) {
 		first = last = to_add;
 	}
 	else {
@@ -178,21 +177,22 @@ void LinkedList<T>::push_last(const T& el) {
 }
 
 template<typename T>
-void LinkedList<T>::pop_first() {
-	if (first == nullptr)
-		return;//nothing to pop
+bool LinkedList<T>::pop_first() {
+	if (size == 0)
+		return false;//nothing to pop
 
 	Node<T>* temp = first;
 	first = first->next;
 
 	delete temp;
 	--size;
+	return true;
 }
 
 template<typename T>
-void LinkedList<T>::pop_last() {
-	if (last == nullptr)
-		return;//nothing to pop
+bool LinkedList<T>::pop_last() {
+	if (size == 0)
+		return false;//nothing to pop
 
 	//if there is only 1 element
 	if (first == last) {
@@ -200,7 +200,7 @@ void LinkedList<T>::pop_last() {
 		//since last doesn't point to anything now
 		//it should be nullptr
 		last = nullptr;
-		return;
+		return true;
 	}
 
 		
@@ -216,11 +216,12 @@ void LinkedList<T>::pop_last() {
 	last = preceding;
 
 	--size;
+	return true;
 }
 
 template<typename T>
 T& LinkedList<T>::get_first() {
-	if (first == nullptr) {
+	if (size == 0) {
 		throw "Empty list";
 	}
 
@@ -229,7 +230,7 @@ T& LinkedList<T>::get_first() {
 
 template<typename T>
 T& LinkedList<T>::get_last() {
-	if (last == nullptr) {
+	if (size == 0) {
 		throw "Empty list";
 	}
 
@@ -277,7 +278,7 @@ void LinkedList<T>::remove_at(size_t index) {
 
 template<typename T>
 void LinkedList<T>::insert_after(size_t index, const T& el) {
-	//inserting after the last element is same as push_last
+	//inserting after the last element is the same as push_last
 	if (index == size - 1) {
 		push_last(el);
 		return;
