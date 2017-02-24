@@ -4,6 +4,7 @@
 //performs dijkstra's algorithm for an adjacency matrix graph with a fixed size
 //this implementation can print the shortest path from source to the other vertices
 //only works for connected graphs
+//prim's algorithm for MST is two steps away from here
 
 #include<iostream>
 #include<climits>
