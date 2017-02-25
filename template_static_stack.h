@@ -24,6 +24,7 @@ public:
 	T& peek();
 
 	bool is_empty() const;
+	size_t get_size() const;
 
 
 };
@@ -95,6 +96,11 @@ T& Stack<T>::peek() {
 template<typename T>
 bool Stack<T>::is_empty() const{
 	return top == 0;
+}
+
+template<typename T>
+size_t Stack<T>::get_size() const{
+	return top;
 }
 
 
