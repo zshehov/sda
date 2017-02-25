@@ -2,25 +2,28 @@
 #define _DYNAMIC_QUEUE
 
 template<typename T>
-struct node{
-	node<T>* next;
-	T value;
+struct node {
 
-	node(const T& _value, node<T>* _next = nullptr) {
-		value = _value;
-		next = _next;
-	}
+	T value;
+	node<T>* next;
+
+	node(const T& _value = T(), node<T>* _next = nullptr);
 };
+
+template<typename T>
+node<T>::node(const T& _value = T(), node<T>* _next = nullptr) :
+	value(_value),
+	next(_next) {}
 
 
 template<typename T>
 class queue {
 private:
-	
+
 	node<T>* back, *front;
 	size_t size;
 
-	void clear();
+	void empty_queue();
 	void append(const queue<T>&);
 public:
 
@@ -42,11 +45,8 @@ public:
 
 };
 
-#ifndef _QUEUE_IMPLEMENTATION
-#define _QUEUE_IMPLEMENTATION
-
 template<typename T>
-void queue<T>::clear() {
+void queue<T>::empty_queue() {
 	while (size != 0)
 		dequeue();
 }
@@ -83,7 +83,7 @@ template<typename T>
 queue<T>& queue<T>::operator=(const queue<T>& other) {
 
 	if (this != &other) {
-		clear();
+		empty_queue();
 		append(other);
 	}
 
@@ -93,7 +93,7 @@ queue<T>& queue<T>::operator=(const queue<T>& other) {
 
 template<typename T>
 queue<T>::~queue() {
-	clear();
+	empty_queue();
 }
 
 
@@ -133,7 +133,7 @@ size_t queue<T>::get_size() const {
 
 
 template<typename T>
-bool queue<T>::is_empty() const{
+bool queue<T>::is_empty() const {
 	return size == 0;
 }
 
@@ -147,7 +147,5 @@ template<typename T>
 T& queue<T>::back() {
 	return back->value;
 }
-
-#endif // !_QUEUE_IMPLEMENTATION
 
 #endif // !_DYNAMIC_QUEUE
